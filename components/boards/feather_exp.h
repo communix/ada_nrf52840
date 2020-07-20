@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014 - 2019, Nordic Semiconductor ASA
+ * Copyright (c) 2017 - 2019, Nordic Semiconductor ASA
  *
  * All rights reserved.
  *
@@ -37,8 +37,8 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-#ifndef PCA10031_H
-#define PCA10031_H
+#ifndef FEATHER_EXP_H
+#define FEATHER_EXP_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -46,43 +46,46 @@ extern "C" {
 
 #include "nrf_gpio.h"
 
-// LEDs definitions for PCA10031
-#define LEDS_NUMBER    3
+// LED definitions for FEATHER_EXP
+// Each LED color is considered a separate LED
+#define LEDS_NUMBER    2
 
-#define LED_START      21
-#define LED_RGB_RED    21
-#define LED_RGB_GREEN  22
-#define LED_RGB_BLUE   23
-#define LED_STOP       23
+#define LED_R          NRF_GPIO_PIN_MAP(1,15)
+#define LED_B          NRF_GPIO_PIN_MAP(1,10)
 
-#define LEDS_ACTIVE_STATE 1
+#define LED_1          LED_R
+#define LED_2          LED_B
+
+#define LEDS_ACTIVE_STATE 0
+
+#define LEDS_LIST { LED_1, LED_2}
 
 #define LEDS_INV_MASK  LEDS_MASK
 
-#define LED_RGB_RED_MASK    (1<<LED_RGB_RED)
-#define LED_RGB_GREEN_MASK  (1<<LED_RGB_GREEN)
-#define LED_RGB_BLUE_MASK   (1<<LED_RGB_BLUE)
+#define BSP_LED_0      LED_1
+#define BSP_LED_1      LED_2
+#define BSP_LED_2      LED_1
+#define BSP_LED_3      LED_2
 
-#define LEDS_LIST { LED_RGB_RED, LED_RGB_GREEN, LED_RGB_BLUE}
-// defining RGB led as 3 single LEDs
-#define BSP_LED_0 LED_RGB_RED
-#define BSP_LED_1 LED_RGB_GREEN
-#define BSP_LED_2 LED_RGB_BLUE
+// There is only one button for the application
+// as the second button is used for a RESET.
+#define BUTTONS_NUMBER 1
 
-// there are no user buttons
-#define BUTTONS_NUMBER 0
-#define BUTTONS_LIST {}
+#define BUTTON_1       NRF_GPIO_PIN_MAP(1,2)
+#define BUTTON_PULL    NRF_GPIO_PIN_PULLUP
 
-// UART connection with J-Link
-#define RX_PIN_NUMBER  11
-#define TX_PIN_NUMBER  9
-#define CTS_PIN_NUMBER 10
-#define RTS_PIN_NUMBER 8
+#define BUTTONS_ACTIVE_STATE 0
+
+#define BUTTONS_LIST { BUTTON_1 }
+
+#define BSP_BUTTON_0   BUTTON_1
+
+#define BSP_SELF_PINRESET_PIN NRF_GPIO_PIN_MAP(0,18)
+
 #define HWFC           true
-
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif
+#endif // FEATHER_EXP_H
